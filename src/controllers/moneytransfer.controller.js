@@ -40,14 +40,14 @@ export const newTransfer = async (req, res) => {
         .input('id', sql.Int, destinyAccount)
         .query(queries.getCurrency)
 
-        let exchangedAmount;
+      let exchangedAmount;
 
-        if (originCurrency.recordset[0]['Currency'].localeCompare(destinyCurrency.recordset[0]['Currency']) != 0) {
-          const exchangeResult = await getExchangeRates(originCurrency.recordset[0]['Currency'], destinyCurrency.recordset[0]['Currency'])
-          exchangedAmount = amount / exchangeResult.data.data.USD.value
-        } else {
-          exchangedAmount = amount
-        }
+      if (originCurrency.recordset[0]['Currency'].localeCompare(destinyCurrency.recordset[0]['Currency']) != 0) {
+        const exchangeResult = await getExchangeRates(originCurrency.recordset[0]['Currency'], destinyCurrency.recordset[0]['Currency'])
+        exchangedAmount = amount / exchangeResult.data.data[`${originCurrency.recordset[0]['Currency']}`].value
+      } else {
+        exchangedAmount = amount
+      }
 
       await pool
         .request()
@@ -60,7 +60,7 @@ export const newTransfer = async (req, res) => {
         .input('creationDate', sql.DateTime, new Date())
         .query(queries.addNewTransfer)
 
-      res.json({ msg: 'Transfer created'})
+      res.json({ msg: 'Transfer created' })
     } catch (error) {
       res.json(error)
     }

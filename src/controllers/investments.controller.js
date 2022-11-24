@@ -33,7 +33,7 @@ export const newInvestment = async (req, res) => {
         .input('creationDate', sql.DateTime, new Date())
         .query(queries.newInvestment)
 
-        res.json({msg: 'Investment created.'})
+      res.json({ msg: 'Investment created.' })
     } catch (err) {
       res.json(err)
     }

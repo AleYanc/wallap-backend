@@ -51,7 +51,7 @@ export const getUser = async (req, res) => {
 
 export const userAccounts = async (req, res) => {
   let authRequest = await authorizeRequest(req)
-  const {id} = req.params
+  const { id } = req.params
 
   if (authRequest.valid == false || authRequest.role != 'admin' && authRequest.user != id) {
     res.status(401)
@@ -69,7 +69,7 @@ export const userAccounts = async (req, res) => {
 
 export const userTransactions = async (req, res) => {
   let authRequest = await authorizeRequest(req)
-  const {id} = req.params
+  const { id } = req.params
 
   if (authRequest.valid == false || authRequest.role != 'admin' && authRequest.user != id) {
     res.status(401)

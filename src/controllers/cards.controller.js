@@ -1,12 +1,16 @@
-import e from "cors";
+// SQL Connection
 import {
   getConnection,
   sql,
   queries
 }
   from "../database";
-import { testCreditCard } from "../helpers/cards/card_validation"
+
+// Auth validation
 import { authorizeRequest } from "../middleware/auth"
+
+// Card validations
+import { testCreditCard } from "../helpers/cards/card_validation"
 
 export const newCardd = async (req, res) => {
   let authRequest = await authorizeRequest(req)

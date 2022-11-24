@@ -1,12 +1,19 @@
+// SQL Connection
 import {
   getConnection,
   sql,
   queries
 }
   from "../database";
-import { missingParam } from "../helpers/transaction_validation";
+
+// Auth validation
 import { authorizeRequest } from "../middleware/auth"
+
+// Transaction validation
+import { missingParam } from "../helpers/validator";
 import { moneyTransferSchema } from "../schema/investments.schema";
+
+// Money transfer - exchange service
 import { getExchangeRates } from "../services/exchange";
 
 export const newTransfer = async (req, res) => {

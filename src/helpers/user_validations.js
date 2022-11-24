@@ -12,13 +12,6 @@ export const invalidIdType = (idType) => {
   return VALID_ID_TYPES.includes(idType)
 }
 
-// Check body request for missing params
-export const missingParam = (body) => {
-  const missingParamValidation = validatorFactory(userSchema)
-  const data = missingParamValidation.verify(body)
-  return data
-}
-
 // Parse errors
 export const parseError = async (validationErrors) => {
   let errors = [];

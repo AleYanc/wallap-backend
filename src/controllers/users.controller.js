@@ -1,12 +1,21 @@
+// SQL Connection
 import {
   getConnection,
   sql,
   queries
 }
   from "../database";
-import { invalidIdType, missingParam, VALID_ID_TYPES } from '../helpers/user_validations'
+
+// Password encrypt
 import bcrypt from 'bcrypt'
+
+// Auth validation
 import { authorizeRequest, signToken } from "../middleware/auth";
+
+// User validations
+import { invalidIdType, VALID_ID_TYPES } from '../helpers/user_validations'
+import { missingParam } from "../helpers/validator";
+import { userSchema } from "../schema/user.schema";
 
 export const getAllUsers = async (req, res) => {
   let authRequest = await authorizeRequest(req)
@@ -99,7 +108,7 @@ export const addNewUser = async (req, res) => {
   } = req.body
 
   // Validations
-  const data = missingParam(req.body)
+  const data = missingParam(req.body, userSchema)
   if (data['valid'] == false) {
     const error = data.message
     res.json({ 'error': error })
@@ -138,7 +147,7 @@ export const addNewUser = async (req, res) => {
       res.json({ 'Error': 'Email already in use' })
     }
     else {
-      res.json({ 'Error': err })
+      res.json({ 'Error': err?.originalError })
     }
   }
 }

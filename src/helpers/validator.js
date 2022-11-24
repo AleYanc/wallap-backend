@@ -28,4 +28,10 @@ export const validatorFactory = (schema) => {
   };
 
   return { schema, verify };
-};
+}
+
+export const missingParam = (body, schema) => {
+  const missingParamValidation = validatorFactory(schema)
+  const data = missingParamValidation.verify(body)
+  return data
+}

@@ -1,10 +1,16 @@
+// SQL Connection
 import {
   getConnection,
   sql,
   queries
 }
   from "../database";
+
+// Auth validation
 import { authorizeRequest } from "../middleware/auth"
+
+// Investment validations
+import { missingParam } from "../helpers/validator";
 import { investmentsSchema } from "../schema/investments.schema";
 
 export const newInvestment = async (req, res) => {

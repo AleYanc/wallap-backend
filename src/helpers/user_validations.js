@@ -1,9 +1,3 @@
-// Import AJV validator factory
-import { validatorFactory } from './validator'
-
-// Import user schema
-import { userSchema } from '../schema/user.schema'
-
 // Define custom constants
 export const VALID_ID_TYPES = ['DNI', 'PASSPORT']
 
